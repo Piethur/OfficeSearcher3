@@ -1,9 +1,11 @@
 package com.example.officesearcher3
 
+import android.R.attr.password
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -21,15 +23,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     val TAG = "Specifieke Logging: "
     private val default_web_client_id = "126475748460-brri7pjhiuoskenimums0561bg69lvvs.apps.googleusercontent.com"
     lateinit var mAuth: FirebaseAuth
-    private var mGoogleSignInClient: GoogleSignInClient? = null
 
+    private var mGoogleSignInClient: GoogleSignInClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i(TAG, "on Create.....")
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
-        mAuth = FirebaseAuth.getInstance();
+
+        mAuth = FirebaseAuth.getInstance()
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -40,8 +42,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(this)
-
-
     }
 
     private fun signIn() {
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
         Log.i(TAG, "on Start.....")
-//        val currentUser = mAuth.currentUser
+        val currentUser = mAuth.currentUser
 //        updateUI(currentUser)
 
         // is de user al eerder geregistreerd?
@@ -78,10 +78,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //            val user = FirebaseAuth.getInstance().currentUser
 //            //Even kijken of deze null of niet null moet zijn
 //            if (user == null) {
-////            startActivity(content_main.getLaunchIntent(this))
+//            startActivity(content_main.getLaunchIntent(this))
 //                finish()
         }
     }
+
 
     override fun onClick(v: View) {
         when (v.id) {
